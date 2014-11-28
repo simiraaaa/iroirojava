@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -12,6 +13,7 @@ public abstract class MyQuery{
 		// TODO 自動生成されたコンストラクター・スタブ
 	}
 	private HashMap<Object, HashMap<String, Object>> map=null;
+	private ArrayList<HashMap<String, Object>> list =null;
 
 	/**
 	 * データベースにアクセスしSQL文を実行する（con.close()しない）
@@ -60,13 +62,18 @@ public abstract class MyQuery{
 	 */
 	public boolean exe(PreparedStatement ps, String primary,String... fields ) {
 		boolean isTrue=false;
+		boolean isArray = "[]".equals(primary);
 		boolean isSelect = !"".equals(primary);
 		if(isSelect){
 			ResultSet rs=null;
 			try {
 				setPreparedSql(ps);
 				rs=ps.executeQuery();
-				this.map=getMap(rs, primary, fields);
+				if(isArray){
+					this.list=getList(rs,fields);
+				}else{
+					this.map=getMap(rs, primary, fields);
+				}
 				isTrue=true;
 			} catch (SQLException e) {
 				System.out.println("ps.executeQueryのエラー");
@@ -137,6 +144,29 @@ public abstract class MyQuery{
 		}
 		return mp;
 	}
+
+	/**
+	 * ResultSetをlistに格納する(closeはしない)
+	 * @param fields mapにセットしたいフィールド
+	 * @return li セットしたマップ
+	 * @throws SQLException
+	 */
+	public ArrayList<HashMap<String, Object>> getList(ResultSet rs,String... fields) throws SQLException {
+		ArrayList<HashMap<String, Object>> li =new ArrayList< HashMap<String, Object>>();
+		int len=fields.length;
+		while( rs.next() ){
+			HashMap<String, Object> map2=new HashMap<String, Object>();
+			for(int j=0;j<len;)map2.put(fields[j],rs.getObject(fields[j++]));
+			li.add(map2);
+		}
+		return li;
+	}
+
+	public ArrayList<HashMap<String, Object>> getList() {
+		return list;
+	}
+
+
 	public HashMap<Object,  HashMap<String, Object>> getMap() {
 		return this.map;
 	}

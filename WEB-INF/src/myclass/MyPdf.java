@@ -98,6 +98,24 @@ public class MyPdf {
 		}
 		return this;
 	}
+	/**
+	 * 直
+	 * @param baseColors
+	 * @return
+	 */
+	public MyPdf setBackGrounds(BaseColor[][] baseColors){
+		backGrounds = baseColors;
+		return this;
+	}
+	/**
+	 * 直
+	 * @param baseColors
+	 * @return
+	 */
+	public MyPdf setBorderColors(BaseColor[][] baseColors){
+		borderColors = baseColors;
+		return this;
+	}
 
 	/**
 	 * 引数には配列の添え字を２つと色をRGBAのVALUEを

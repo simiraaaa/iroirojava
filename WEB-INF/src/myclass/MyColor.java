@@ -4,6 +4,7 @@ package myclass;
 
 
 
+
 /**
  *
  * @author yuki
@@ -42,6 +43,21 @@ public class MyColor {
 
 	}
 
+	public MyColor setValue(final String s) {
+		String[] ar = s.split(",");
+		int l = ar.length;
+		int[] cs=new int[l];
+		for(int i=0;i<l;++i){
+			cs[i]=Integer.parseInt(ar[i]);
+		}
+		if(l == 4){
+			setValue(cs[0], cs[1], cs[2], cs[3]);
+		}else {
+			setValue(cs[0], cs[1], cs[2]);
+		}
+
+		return this;
+	}
 	public MyColor setValue(final int r,final int g,final int b,final int a) {
 		value=((validate(a) & 0xFF) << 24) | ((validate(r) & 0xFF) << 16) | ((validate(g) & 0xFF) << 8) | ((validate(b) & 0xFF) << 0);
 		return this;

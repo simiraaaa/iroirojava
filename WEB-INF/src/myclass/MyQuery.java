@@ -98,6 +98,7 @@ public abstract class MyQuery{
 			}
 		}else{
 			try {
+				setPreparedSql(ps);
 				ps.executeUpdate();
 				isTrue=true;
 			} catch (SQLException e) {

@@ -14,10 +14,12 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.CMYKColor;
+import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 /**
  *
  * @author yuki
@@ -36,6 +38,7 @@ public class MyPdf {
 	private BaseColor[][] borderColors =null;
 	private float paddingAll =0f;
 	private boolean isPaddingAll =false;
+	private PdfContentByte pcb =null;
 
 
 	/**
@@ -279,6 +282,10 @@ public class MyPdf {
 
 	}
 
+	public Document getDocument() {
+		return doc;
+	}
+
 	/**
 	 * Documentを作って返す
 	 * @param pageSize
@@ -334,6 +341,23 @@ public class MyPdf {
 			e.printStackTrace();
 		}
 		return f;
+	}
+
+	private PdfContentByte getPdfContentByte() {
+		if(pcb == null){ pcb = pw.getDirectContent(); }
+		return pcb;
+	}
+
+	public MyPdf showText(final float x,final float y,final String text) throws DocumentException, IOException {
+		getPdfContentByte();
+		BaseFont bf = BaseFont.createFont("HeiseiKakuGo-W5","UniJIS-UCS2-H",BaseFont.NOT_EMBEDDED);
+		pcb.setFontAndSize(bf,16);
+		pcb.setColorFill(CMYKColor.BLACK);
+		pcb.beginText();
+		pcb.moveText(x, y);
+		pcb.showText(text);
+		pcb.endText();
+		return this;
 	}
 
 	public MyPdf sendPdf(HttpServletResponse res) {

@@ -1,6 +1,8 @@
 package test;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import com.sun.org.apache.bcel.internal.generic.NEW;
 
@@ -9,6 +11,15 @@ public class Test implements InterfaceTest{
 
 	public Test Hello() {
 		log("hello_world");
+		HashMap<String, String> map=new HashMap<String, String>();
+		TestMap.puts(map, "test","test","test1","1","test2","2");
+		HashMap<String, String> map2=TestMap.create("t1","1","t2","2","t3","3","t4","4");
+		for(String s: map.keySet()){
+			log(s+":"+map.get(s));
+		}
+		for(String s: map2.keySet()){
+			log(s+":"+map2.get(s));
+		}
 		return this;
 	}
 	public Test() {

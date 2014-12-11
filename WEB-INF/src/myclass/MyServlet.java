@@ -21,6 +21,9 @@ public abstract class MyServlet extends HttpServlet{
 		setting(req,res);
 	}
 	protected void setting(HttpServletRequest req,HttpServletResponse res)  throws ServletException, IOException  {
+
+		res.setCharacterEncoding("UTF-8");
+		req.setCharacterEncoding("UTF-8");
 		action(request=req, response=res);
 	}
 

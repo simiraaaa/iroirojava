@@ -3,10 +3,13 @@ package myclass;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
@@ -19,7 +22,6 @@ import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 /**
  *
  * @author yuki
@@ -39,6 +41,7 @@ public class MyPdf {
 	private float paddingAll =0f;
 	private boolean isPaddingAll =false;
 	private PdfContentByte pcb =null;
+	private float pageSize = 0.0f;
 
 
 	/**
@@ -319,6 +322,10 @@ public class MyPdf {
 		 return p;
 	}
 
+	public PdfWriter getPdfWriter() {
+		return pw;
+	}
+
 	/**
 	 * フォントを作って返す
 	 * @param fontSize
@@ -348,15 +355,35 @@ public class MyPdf {
 		return pcb;
 	}
 
+	public MyPdf nextPage() {
+		try {
+			doc.add(Chunk.NEXTPAGE);
+		} catch (DocumentException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		return this;
+	}
+
 	public MyPdf showText(final float x,final float y,final String text) throws DocumentException, IOException {
 		getPdfContentByte();
+		pageSize = pw.getPageSize().getHeight();
 		BaseFont bf = BaseFont.createFont("HeiseiKakuGo-W5","UniJIS-UCS2-H",BaseFont.NOT_EMBEDDED);
-		pcb.setFontAndSize(bf,16);
+		pcb.setFontAndSize(bf,11);
 		pcb.setColorFill(CMYKColor.BLACK);
 		pcb.beginText();
-		pcb.moveText(x, y);
+		pcb.moveText(x, pageSize-y);
 		pcb.showText(text);
 		pcb.endText();
+		return this;
+	}
+
+	public MyPdf showImage(final float x,final float y,final String src) throws MalformedURLException, IOException, DocumentException {
+  	    com.itextpdf.text.Image img = com.itextpdf.text.Image.getInstance(src);
+  	    getPdfContentByte();
+		pageSize = pw.getPageSize().getHeight();
+  	    img.setAbsolutePosition(x,pageSize - y-img.getHeight());
+  	    pcb.addImage(img);
 		return this;
 	}
 

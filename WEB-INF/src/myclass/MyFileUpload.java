@@ -22,9 +22,10 @@ public class MyFileUpload {
 		ServletFileUpload upload = new ServletFileUpload(factory);
 		factory.setSizeThreshold(1024);
 	    upload.setSizeMax(-1);
-	    upload.setHeaderEncoding("Windows-31J");
+	    upload.setHeaderEncoding("utf8");
 	    boolean isNotNullSS= ss!=null;
 	    int i=0;
+	    Escape escape=new Escape();
 
 	    try {
 	        //(4)ファイルデータ(FileItemオブジェクト)を取得し、
@@ -43,10 +44,10 @@ public class MyFileUpload {
 	            if((fileName != null) && (!fileName.equals(""))){
 	              //(8)PATH名を除くファイル名のみを取得
 	              fileName=(new File(fileName)).getName();
-	              String filepathString=path + fileName;
+	              String filepathString=path + escape.URLEncode(fileName);
 	              //(9)ファイルデータを指定されたファイルに書き出し
 	              fItem.write(new File(filepathString));
-	              if(isNotNullSS){ss.set(i++, filepathString);};
+	              if(isNotNullSS){ss.add(i++, filepathString);};
 
 	            }
 	          }

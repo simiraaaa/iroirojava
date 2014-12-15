@@ -1,8 +1,6 @@
 package myclass.wrap;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-
 /**
  * ArrayList、配列操作を楽にする
  * @author yuki

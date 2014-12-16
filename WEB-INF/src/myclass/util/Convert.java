@@ -14,7 +14,7 @@ public class Convert {
 	public static String toUnicode(final String s,boolean toUpper){
 		final char[] chars = s.toCharArray();
 		final int len = chars.length;
-		StringBuilder sb = new StringBuilder(len * UNICODE_RATE);
+		StringBuffer sb = new StringBuffer(len * UNICODE_RATE);
 		for(int i = 0; i < len; ++i){
 			final String s16 = Integer.toHexString((int)chars[i]);
 			sb.append(HEAD);

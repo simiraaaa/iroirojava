@@ -92,4 +92,123 @@ public class MyArray {
 		}
 		return (E[]) es3;
 	}
+
+	public static<E> int indexOf(final E[] arr,final E e) {
+		for(int i = 0,l = arr.length; i < l; ++i){
+			if(e == null ? arr[i]==null : e.equals(arr[i])){
+				return i;
+			}
+		}
+		return -1;
+	}
+	public static<E> int lastIndexOf(final E[] arr,final E e) {
+		for(int i = arr.length - 1; i >= 0; --i){
+			if(e == null ? arr[i]==null : e.equals(arr[i])){
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public static int indexOf(final int[] arr,final int e) {
+		for(int i = 0,l = arr.length; i < l; ++i){
+			if(arr[i] == e){ return i; }
+		}
+		return -1;
+	}
+	public static int lastIndexOf(final int[] arr,final int e) {
+		for(int i = arr.length - 1; i >= 0; --i){
+			if(arr[i] == e){ return i; }
+		}
+		return -1;
+	}
+	public static int indexOf(final char[] arr,final char e) {
+		for(int i = 0,l = arr.length; i < l; ++i){
+			if(arr[i] == e){ return i; }
+		}
+		return -1;
+	}
+	public static int lastIndexOf(final char[] arr,final char e) {
+		for(int i = arr.length - 1; i >= 0; --i){
+			if(arr[i] == e){ return i; }
+		}
+		return -1;
+	}
+	public static int indexOf(final float[] arr,final float e) {
+		for(int i = 0,l = arr.length; i < l; ++i){
+			if(arr[i] == e){ return i; }
+		}
+		return -1;
+	}
+	public static int lastIndexOf(final float[] arr,final float e) {
+		for(int i = arr.length - 1; i >= 0; --i){
+			if(arr[i] == e){ return i; }
+		}
+		return -1;
+	}
+	public static int indexOf(final double[] arr,final double e) {
+		for(int i = 0,l = arr.length; i < l; ++i){
+			if(arr[i] == e){ return i; }
+		}
+		return -1;
+	}
+	public static int lastIndexOf(final double[] arr,final double e) {
+		for(int i = arr.length - 1; i >= 0; --i){
+			if(arr[i] == e){ return i; }
+		}
+		return -1;
+	}
+
+	public static int indexOf(final long[] arr,final long e) {
+		for(int i = 0,l = arr.length; i < l; ++i){
+			if(arr[i] == e){ return i; }
+		}
+		return -1;
+	}
+	public static int lastIndexOf(final long[] arr,final long e) {
+		for(int i = arr.length - 1; i >= 0; --i){
+			if(arr[i] == e){ return i; }
+		}
+		return -1;
+	}
+
+	public static int indexOf(final short[] arr,final short e) {
+		for(int i = 0,l = arr.length; i < l; ++i){
+			if(arr[i] == e){ return i; }
+		}
+		return -1;
+	}
+	public static int lastIndexOf(final short[] arr,final short e) {
+		for(int i = arr.length - 1; i >= 0; --i){
+			if(arr[i] == e){ return i; }
+		}
+		return -1;
+	}
+	public static int indexOf(final byte[] arr,final byte e) {
+		for(int i = 0,l = arr.length; i < l; ++i){
+			if(arr[i] == e){ return i; }
+		}
+		return -1;
+	}
+	public static int lastIndexOf(final byte[] arr,final byte e) {
+		for(int i = arr.length - 1; i >= 0; --i){
+			if(arr[i] == e){ return i; }
+		}
+		return -1;
+	}
+
+	public static int indexOf(final boolean[] arr,final boolean e) {
+		for(int i = 0,l = arr.length; i < l; ++i){
+			if(arr[i] == e){ return i; }
+		}
+		return -1;
+	}
+	public static int lastIndexOf(final boolean[] arr,final boolean e) {
+		for(int i = arr.length - 1; i >= 0; --i){
+			if(arr[i] == e){ return i; }
+		}
+		return -1;
+	}
+
+
 }

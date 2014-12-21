@@ -110,7 +110,7 @@ public class Prime {
 		for(int i = 0, len = MAX_TABLE.length;i < len ;++i){
 			if(LENGTH_TABLE[i] > x){createList(MAX_TABLE[i]);return;}
 		}
-		createList(330000000);
+		createList(Integer.MAX_VALUE -1);
 		return;
 	}
 
@@ -118,7 +118,7 @@ public class Prime {
 		for(int i = 0, len = MAX_TABLE.length;i < len ;++i){
 			if(COUNT_TABLE[i] > x){createList(MAX_TABLE2[i]);return;}
 		}
-		createList(330000000);
+		createList(Integer.MAX_VALUE -1);
 		return;
 	}
 

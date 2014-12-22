@@ -1,12 +1,19 @@
 package myclass.util;
 
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class JSON<L extends Object & java.util.List<Object>,M extends AbstractMap<String, Object> & java.util.Map<String, Object>>{
+
+/**
+ * JSONが扱える
+ *
+ */
+public class JSON{
 
 	private static final char
+	COLON = ':',
 	MINUS = '-',
 	DOT = '.',
 	COMMA = ',',
@@ -30,6 +37,23 @@ public class JSON<L extends Object & java.util.List<Object>,M extends AbstractMa
 	NUM_7 = '7',
 	NUM_8 = '8',
 	NUM_9 = '9';
+
+	private static final String
+	LONG_ARRAY = getClassNameLast(long[].class),
+	INT_ARRAY = getClassNameLast(int[].class),
+	BYTE_ARRAY = getClassNameLast(byte[].class),
+	CHAR_ARRAY = getClassNameLast(char[].class),
+	SHORT_ARRAY = getClassNameLast(short[].class),
+	BOOL_ARRAY = getClassNameLast(boolean[].class),
+	DOUBLE_ARRAY = getClassNameLast(double[].class),
+	FLOAT_ARRAY = getClassNameLast(float[].class),
+	OBJECT_ARRAY = getClassNameLast(Object[].class),
+	ARRAY_TWO = "[[";
+
+	private static<T> String getClassNameLast(Class<T> c) {
+		String name=c.getName();
+		return name.substring(name.length()-1);
+	}
 
 	/**
 	 * JSON文字列のエンコード
@@ -151,7 +175,7 @@ public class JSON<L extends Object & java.util.List<Object>,M extends AbstractMa
 	}
 
 	/**
-	 * JSON parseする
+	 * JSON文字列からJAVAオブジェクトを生成
 	 * @param s JSON文字列
 	 * @return parseされたJAVAオブジェクト
 	 */
@@ -239,6 +263,175 @@ public class JSON<L extends Object & java.util.List<Object>,M extends AbstractMa
 			}
 		}
 		throw new RuntimeException("JSON:ArrayFormatException");
+	}
+
+	private static boolean isPrimitive(Object o) {
+		return
+				o instanceof Integer ||
+				o instanceof Boolean||
+				o instanceof Long ||
+				o instanceof Byte||
+				o instanceof Short ||
+				o instanceof Float||
+				o instanceof Double ;
+	}
+
+	private static StringBuffer stringify(String s, StringBuffer sb) {
+		return sb.append(DB_QUOT + Convert.toUnicode(s) + DB_QUOT);
+	}
+
+	private static StringBuffer stringify(Object[] ar, StringBuffer sb) {
+		sb.append(ARRAY_START);
+		for(int i = 0,len = ar.length; i < len;++i){
+			stringify((Object)ar[i], sb);
+			if (i < len - 1) {
+				sb.append(COMMA);
+			}
+		}
+		return sb.append(ARRAY_END);
+	}
+	private static StringBuffer stringify(List<Object> ar, StringBuffer sb) {
+		sb.append(ARRAY_START);
+		for(int i = 0,len = ar.size(); i < len;++i){
+			stringify((Object)ar.get(i), sb);
+			if (i < len - 1) {
+				sb.append(COMMA);
+			}
+		}
+		return sb.append(ARRAY_END);
+	}
+	private static StringBuffer stringify(Map<String,Object> map, StringBuffer sb) {
+		sb.append(OBJECT_START);
+		int size = map.size();
+		for(String key : map.keySet()){
+			stringify(key,sb).append(COLON);
+			stringify((Object)map.get(key), sb);
+			if (--size > 0) {
+				sb.append(COMMA);
+			}
+		}
+		return sb.append(OBJECT_END);
+	}
+	private static StringBuffer stringify(int[] ar, StringBuffer sb) {
+		sb.append(ARRAY_START);
+		for(int i = 0,len = ar.length; i < len;++i){
+			sb.append(String.valueOf(ar[i]));
+			if (i < len - 1) {
+				sb.append(COMMA);
+			}
+		}
+		return sb.append(ARRAY_END);
+	}
+	private static StringBuffer stringify(long[] ar, StringBuffer sb) {
+		sb.append(ARRAY_START);
+		for(int i = 0,len = ar.length; i < len;++i){
+			sb.append(String.valueOf(ar[i]));
+			if (i < len - 1) {
+				sb.append(COMMA);
+			}
+		}
+		return sb.append(ARRAY_END);
+	}
+	private static StringBuffer stringify(byte[] ar, StringBuffer sb) {
+		sb.append(ARRAY_START);
+		for(int i = 0,len = ar.length; i < len;++i){
+			sb.append(String.valueOf(ar[i]));
+			if (i < len - 1) {
+				sb.append(COMMA);
+			}
+		}
+		return sb.append(ARRAY_END);
+	}
+	private static StringBuffer stringify(short[] ar, StringBuffer sb) {
+		sb.append(ARRAY_START);
+		for(int i = 0,len = ar.length; i < len;++i){
+			sb.append(String.valueOf(ar[i]));
+			if (i < len - 1) {
+				sb.append(COMMA);
+			}
+		}
+		return sb.append(ARRAY_END);
+	}
+	private static StringBuffer stringify(boolean[] ar, StringBuffer sb) {
+		sb.append(ARRAY_START);
+		for(int i = 0,len = ar.length; i < len;++i){
+			sb.append(String.valueOf(ar[i]));
+			if (i < len - 1) {
+				sb.append(COMMA);
+			}
+		}
+		return sb.append(ARRAY_END);
+	}
+	private static StringBuffer stringify(double[] ar, StringBuffer sb) {
+		sb.append(ARRAY_START);
+		for(int i = 0,len = ar.length; i < len;++i){
+			sb.append(String.valueOf(ar[i]));
+			if (i < len - 1) {
+				sb.append(COMMA);
+			}
+		}
+		return sb.append(ARRAY_END);
+	}
+	private static StringBuffer stringify(float[] ar, StringBuffer sb) {
+		sb.append(ARRAY_START);
+		for(int i = 0,len = ar.length; i < len;++i){
+			sb.append(String.valueOf(ar[i]));
+			if (i < len - 1) {
+				sb.append(COMMA);
+			}
+		}
+		return sb.append(ARRAY_END);
+	}
+	private static StringBuffer stringify(char[] ar, StringBuffer sb) {
+		sb.append(ARRAY_START);
+		for(int i = 0,len = ar.length; i < len;++i){
+			stringify(String.valueOf(ar[i]),sb);
+			if (i < len - 1) {
+				sb.append(COMMA);
+			}
+		}
+		return sb.append(ARRAY_END);
+	}
+
+	private static StringBuffer stringify(Object o, StringBuffer sb) {
+		if(isPrimitive(o)){return sb.append(String.valueOf(o));}
+		if(o instanceof String){ return stringify((String)o, sb);}
+		if(o instanceof Map){return stringify((Map<String,Object>)o, sb);}
+		if (o instanceof List) { return stringify((List<Object>)o, sb);}
+		if(o instanceof Character){ return stringify(String.valueOf(o), sb);}
+		if(o.getClass().isArray()){
+			String s = o.getClass().getName();System.out.println(s);
+			if(s.endsWith(OBJECT_ARRAY) || s.contains(ARRAY_TWO)){
+				return stringify((Object[])o, sb);
+			}
+			if (s.endsWith(INT_ARRAY)) { return stringify((int[])o, sb);}
+			if (s.endsWith(BOOL_ARRAY)) {return stringify((boolean[])o, sb);}
+			if (s.endsWith(FLOAT_ARRAY)) {return stringify((float[])o, sb);}
+			if (s.endsWith(DOUBLE_ARRAY)) {return stringify((double[])o, sb);}
+			if (s.endsWith(BYTE_ARRAY)) {return stringify((byte[])o, sb);}
+			if (s.endsWith(LONG_ARRAY)) {return stringify((long[])o, sb);}
+			if (s.endsWith(SHORT_ARRAY)) {return stringify((short[])o, sb);}
+			if (s.endsWith(CHAR_ARRAY)) {return stringify((char[])o, sb);}
+		}
+		return stringify(String.valueOf(o), sb);
+	}
+
+	/**
+	 * JAVAのオブジェクトからJSON文字列を生成<br>
+	 * 型の制限<br>
+	 * 以下の型以外は全てString.valueOf(o)され<br>
+	 * 文字列として扱われます。<br>
+	 * プリミティブ型<br>
+	 * プリミティブ型のラッパークラス<br>
+	 * String<br>
+	 * List<br>
+	 * Map<br>
+	 * 各種配列<br>
+	 * @param o
+	 * @return
+	 */
+	public static String stringify(Object o) {
+		return stringify(o,new StringBuffer()).toString();
 	}
 
 	private static int[] addIndex(int[] i) {

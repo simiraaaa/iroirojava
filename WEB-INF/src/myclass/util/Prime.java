@@ -95,7 +95,7 @@ public class Prime {
 	 */
 	public static char getChar(final int x) {
 		if(x < 1){
-			throw new RuntimeException("引数が1以下");
+			throw new RuntimeException("引数が1未満");
 		}
 		checkLengthList(x);
 		for(int i =0,k = 0;; ++i){
@@ -242,9 +242,10 @@ public class Prime {
 			return new int[]{2,3,5};
 		}
 		if(PRIME_LIST != null){
-			if(PRIME_LIST[PRIME_LIST.length -1] >= x){
+			int y = getByMax(x);
+			if(PRIME_LIST[PRIME_LIST.length -1] >= y){
 				int i = 0;
-				for(;PRIME_LIST[i] < x;++i){}
+				for(;PRIME_LIST[i] < y;++i){}
 				int[] primes = new int[1+i];
 				for(;i>=0 ; --i){
 					primes[i] = PRIME_LIST[i];

@@ -1,6 +1,8 @@
 package myclass.wrap;
 
 import java.util.ArrayList;
+
+import myclass.util.Compare;
 /**
  * ArrayList、配列操作を楽にする
  * @author yuki
@@ -27,10 +29,83 @@ public class MyArray {
 		StringBuffer joined=new StringBuffer();
 		for(int i =0,l=arr.size();i<l;){
 			joined.append(arr.get(i++));
-			if(i!=l-1){joined.append(s);}
+			if(i<l){joined.append(s);}
 		}
 		return joined.toString();
 	}
+
+	/**
+	 * 配列と配列をインデックス順に文字列で結合した
+	 * <br>新しいString配列を返す
+	 * <br>sizeが少ない方の配列長で返す
+	 * @param arr
+	 * @param ar2
+	 * @param s
+	 * @return
+	 */
+	public static<E,T> String[] join(ArrayList<E> arr,ArrayList<T> ar2,final String s) {
+		final int l = Compare.small(arr.size(), ar2.size());
+		String[] ars = new String[l];
+		for(int i =0;i < l;++i){
+			ars[i]= arr.get(i)+s+ar2.get(i);
+		}
+		return ars;
+	}
+	/**
+	 * 配列と配列をインデックス順に文字列で結合した
+	 * <br>新しいString配列を返す
+	 * <br>sizeが少ない方の配列長で返す
+	 * @param arr
+	 * @param ar2
+	 * @param s
+	 * @return
+	 */
+	public static<E,T> String[] join(E[] arr,ArrayList<T> ar2,final String s) {
+		final int l = Compare.small(arr.length, ar2.size());
+		String[] ars = new String[l];
+		for(int i =0;i < l;++i){
+			ars[i]= arr[i]+s+ar2.get(i);
+		}
+		return ars;
+	}
+	/**
+	 * 配列と配列をインデックス順に文字列で結合した
+	 * <br>新しいString配列を返す
+	 * <br>sizeが少ない方の配列長で返す
+	 * @param arr
+	 * @param ar2
+	 * @param s
+	 * @return
+	 */
+	public static<E,T> String[] join(ArrayList<E> arr, T[] ar2,final String s) {
+		final int l = Compare.small(arr.size(), ar2.length);
+		String[] ars = new String[l];
+		for(int i =0;i < l;++i){
+			ars[i]= arr.get(i)+s+ar2[i];
+		}
+		return ars;
+	}
+
+	/**
+	 * 配列と配列をインデックス順に文字列で結合した
+	 * <br>新しいString配列を返す
+	 * <br>sizeが少ない方の配列長で返す
+	 * @param arr
+	 * @param ar2
+	 * @param s
+	 * @return
+	 */
+	public static<E,T> String[] join(E[] arr, T[] ar2,final String s) {
+		final int l = Compare.small(arr.length, ar2.length);
+		String[] ars = new String[l];
+		for(int i =0;i < l;++i){
+			ars[i]= arr[i]+s+ar2[i];
+		}
+		return ars;
+	}
+
+
+
 
 
 	/**
@@ -43,7 +118,7 @@ public class MyArray {
 		StringBuffer joined=new StringBuffer();
 		for(int i =0,l=arr.length;i<l;){
 			joined.append(arr[i++]);
-			if(i!=l-1){joined.append(s);}
+			if(i<l){joined.append(s);}
 		}
 		return joined.toString();
 	}

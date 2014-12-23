@@ -1,4 +1,4 @@
-package myclass;
+package myclass.gomi;
 
 public class ClassCreate {
 

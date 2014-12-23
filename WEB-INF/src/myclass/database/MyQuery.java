@@ -1,4 +1,4 @@
-package myclass;
+package myclass.database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,6 +24,7 @@ public abstract class MyQuery{
 	public boolean exe(Connection con, String sql) {
 		return exe(con, sql, "");
 	}
+
 
 	/**
 	 * データベースにアクセスしSQL文を実行する（con.close()しない）
@@ -177,4 +178,7 @@ public abstract class MyQuery{
 	 * @param ps
 	 */
 	abstract protected void setPreparedSql(PreparedStatement ps);
+
+
+
 }

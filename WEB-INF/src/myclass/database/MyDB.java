@@ -1,8 +1,9 @@
-package myclass;
+package myclass.database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
 
 public class MyDB extends MyQuery {
 
@@ -91,10 +92,27 @@ public class MyDB extends MyQuery {
 	public boolean action(Connection con,String sql) {
 		return action(con, sql,"");
 	}
+
+	private Object[] prepareObjects=null;
 	@Override
 	protected void setPreparedSql(PreparedStatement ps) {
-		// TODO 自動生成されたメソッド・スタブ
-
+		if(this.prepareObjects==null)return;
+		try {
+			for(int i=0,len=this.prepareObjects.length;i<len;++i){
+				Object o=this.prepareObjects[i];
+				ps.setObject(i+1, (o==null || o.equals("") ? "null": o));
+			}
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * PreparedStatementの?に入れる
+	 */
+	public MyDB setPrepareObjects(Object... os) {
+		this.prepareObjects=(os==null? new Object[]{null}:os);
+		return this;
 	}
 
 }

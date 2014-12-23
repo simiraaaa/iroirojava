@@ -1,4 +1,4 @@
-package myclass;
+package myclass.gomi;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

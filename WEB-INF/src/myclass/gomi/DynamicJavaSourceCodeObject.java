@@ -1,4 +1,4 @@
-package myclass;
+package myclass.gomi;
 
 import javax.tools.SimpleJavaFileObject;
 import java.io.IOException;

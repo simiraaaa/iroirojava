@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import myclass.database.MyQuery;
+
 public class IH31DBCustomer extends MyQuery {
 
 	private int id=0;

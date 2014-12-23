@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import myclass.database.MyQuery;
+
 
 public class IH31DB extends MyQuery{
 
@@ -67,6 +69,8 @@ public class IH31DB extends MyQuery{
 
 		return isTrue;
 	}
+
+
 	/**
 	 * SQLを実行する
 	 * @param sql SELECT以外のSQL文

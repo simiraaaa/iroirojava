@@ -1,4 +1,4 @@
-package myclass;
+package myclass.gomi;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.plaf.basic.BasicScrollPaneUI.HSBChangeListener;
 import javax.tools.*;
+
 
 import com.sun.org.apache.bcel.internal.generic.NEW;
 

@@ -438,10 +438,11 @@ public class JSON{
 		++i[0];
 		return i;
 	}
-	private static int[] addIndex(int[] i, int add) {
-		i[0] += add;
-		return i;
-	}
+
+    // private static int[] addIndex(int[] i, int add) {
+    // i[0] += add;
+    // return i;
+    // }
 
 	private static boolean isNumber(final char c){
 		return

@@ -20,7 +20,7 @@ public class MySQLDatabaseConnection {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public static Connection open(String host,String name, String user,String pass) throws SQLException, ClassNotFoundException {
+    public final static Connection open(String host, String name, String user, String pass) throws SQLException, ClassNotFoundException {
 		// ドライバクラスのロード
 		Class.forName(DRIVER);
 		return DriverManager.getConnection(getURL(host, name), user, pass);
@@ -35,7 +35,7 @@ public class MySQLDatabaseConnection {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public static Connection open(String name, String user, String pass) throws SQLException, ClassNotFoundException  {
+    public final static Connection open(String name, String user, String pass) throws SQLException, ClassNotFoundException {
 		return open(LOCAL_HOST, name, user, pass);
 	}
 	/**
@@ -46,11 +46,11 @@ public class MySQLDatabaseConnection {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public static Connection open(String user,String pass)  throws SQLException, ClassNotFoundException{
+    public final static Connection open(String user, String pass) throws SQLException, ClassNotFoundException {
 		return open(NAME,user, pass);
 	}
 
-	private static String getURL(String host,String name) {
+    private final static String getURL(String host, String name) {
 		return "jdbc:mysql://" + host + "/" + name+"?useUnicode=true&characterEncoding=UTF-8";
 	}
 }

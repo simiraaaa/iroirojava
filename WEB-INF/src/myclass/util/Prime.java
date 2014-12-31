@@ -2,6 +2,8 @@ package myclass.util;
 
 public class Prime {
 
+
+
 	final static private int
 	ONE = 9,
 	TWO = 99,

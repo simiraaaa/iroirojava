@@ -10,120 +10,131 @@ import java.sql.SQLException;
  */
 public class MyDatabase extends MyQuery{
 
-	private Connection con = null;
+    private Connection con = null;
 
-	public MyDatabase setConnection(Connection conn){
-		con=conn;
-		return this;
-	}
+    public final MyDatabase setConnection(Connection conn) {
+        con = conn;
+        return this;
+    }
 
-	public MyDatabase setConnection(String host,String name, String user,String pass){
-		try {
-			con=MySQLDatabaseConnection.open(host, name, user, pass);
-		} catch (SQLException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
-		return this;
-	}
-	public MyDatabase setConnection(String name, String user, String pass) {
-		try {
-			con=MySQLDatabaseConnection.open( name, user, pass);
-		} catch (SQLException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
-		return this;
-	}
+    public final MyDatabase setConnection(String host, String name, String user,
+            String pass) {
+        try {
+            con = MySQLDatabaseConnection.open(host, name, user, pass);
+        } catch (SQLException e) {
+            // TODO 自動生成された catch ブロック
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            // TODO 自動生成された catch ブロック
+            e.printStackTrace();
+        }
+        return this;
+    }
 
-	public MyDatabase setConnection(String user, String pass) {
-		try {
-			con=MySQLDatabaseConnection.open(  user, pass);
-		} catch (SQLException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
-		return this;
-	}
+    public final MyDatabase setConnection(String name, String user, String pass) {
+        try {
+            con = MySQLDatabaseConnection.open(name, user, pass);
+        } catch (SQLException e) {
+            // TODO 自動生成された catch ブロック
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            // TODO 自動生成された catch ブロック
+            e.printStackTrace();
+        }
+        return this;
+    }
 
-	public MyDatabase(Connection conn) {
-		con=conn;
-	}
-	public MyDatabase() {
-		// TODO 自動生成されたコンストラクター・スタブ
-	}
-	public MyDatabase(String host,String name, String user,String pass){
-		setConnection(host, name, user, pass);
-	}
+    public final MyDatabase setConnection(String user, String pass) {
+        try {
+            con = MySQLDatabaseConnection.open(user, pass);
+        } catch (SQLException e) {
+            // TODO 自動生成された catch ブロック
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            // TODO 自動生成された catch ブロック
+            e.printStackTrace();
+        }
+        return this;
+    }
 
-	public MyDatabase(String name, String user,String pass){
-		setConnection(name, user, pass);
-	}
-	public MyDatabase( String user,String pass){
-		setConnection(user, pass);
-	}
+    public MyDatabase(Connection conn) {
+        con = conn;
+    }
 
-	/**
-	 * sql文を実行する<BR>SELECT以外
-	 * @param sql
-	 * @return
-	 */
-	public boolean exe(String sql) {
-		return exe(con, sql);
-	}
+    public MyDatabase() {
+        // TODO 自動生成されたコンストラクター・スタブ
+    }
 
-	/**
-	 * SELECT実行
-	 * @param sql
-	 * @param primary
-	 * @param fields
-	 * @return
-	 */
-	public boolean exe( String sql, String primary,String... fields) {
-		return exe(con, sql, primary, fields);
-	}
+    public MyDatabase(String host, String name, String user, String pass) {
+        setConnection(host, name, user, pass);
+    }
 
-	public MyDatabase close(){
-		try {
-			con.close();
-		} catch (SQLException e) {
-			// TODO 自動生成された catch ブロック
-			System.out.println("Connectionクローズに失敗");
-			e.printStackTrace();
-		}
-		return this;
-	}
+    public MyDatabase(String name, String user, String pass) {
+        setConnection(name, user, pass);
+    }
 
-	private Object[] prepareObjects=null;
-	@Override
-	protected void setPreparedSql(PreparedStatement ps) {
-		if(this.prepareObjects==null)return;
-		try {
-			for(int i=0,len=this.prepareObjects.length;i<len;++i){
-				Object o=this.prepareObjects[i];
-				ps.setObject(i+1, (o==null || o.equals("") ? "null": o));
-			}
-		} catch (SQLException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
-	}
-	/**
-	 * PreparedStatementの?に入れる
-	 */
-	public MyDatabase setPrepareObjects(Object... os) {
-		this.prepareObjects=(os==null? new Object[]{null}:os);
-		return this;
-	}
+    public MyDatabase(String user, String pass) {
+        setConnection(user, pass);
+    }
+
+    /**
+     * sql文を実行する<BR>
+     * SELECT以外
+     * 
+     * @param sql
+     * @return
+     */
+    public final boolean exe(String sql) {
+        return exe(con, sql);
+    }
+
+    /**
+     * SELECT実行
+     * 
+     * @param sql
+     * @param primary
+     * @param fields
+     * @return
+     */
+    public final boolean exe(String sql, String primary, String... fields) {
+        return exe(con, sql, primary, fields);
+    }
+
+    public final MyDatabase close() {
+        try {
+            con.close();
+        } catch (SQLException e) {
+            // TODO 自動生成された catch ブロック
+            System.out.println("Connectionクローズに失敗");
+            e.printStackTrace();
+        }
+        return this;
+    }
+
+    private Object[] prepareObjects = null;
+
+    @Override
+    protected void setPreparedSql(PreparedStatement ps) {
+        if (this.prepareObjects == null)
+            return;
+        try {
+            for (int i = 0, len = this.prepareObjects.length; i < len; ++i) {
+                Object o = this.prepareObjects[i];
+                ps.setObject(i + 1, (o == null || o.equals("") ? "null" : o));
+            }
+        } catch (SQLException e) {
+            // TODO 自動生成された catch ブロック
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * PreparedStatementの?に入れる
+     */
+    public final MyDatabase setPrepareObjects(Object... os) {
+        this.prepareObjects = (os == null ? new Object[] { null } : os);
+        return this;
+    }
 
 
 }

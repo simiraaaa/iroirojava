@@ -21,7 +21,7 @@ public class OracleDatabaseConnection {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public static Connection open(String host,String sid, String user,String pass) throws SQLException, ClassNotFoundException {
+    public final static Connection open(String host, String sid, String user, String pass) throws SQLException, ClassNotFoundException {
 		// ドライバクラスのロード
 		Class.forName(DRIVER);
 		return DriverManager.getConnection(getURL(host, sid), user, pass);
@@ -36,7 +36,7 @@ public class OracleDatabaseConnection {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public static Connection open(String sid, String user, String pass) throws SQLException, ClassNotFoundException  {
+    public final static Connection open(String sid, String user, String pass) throws SQLException, ClassNotFoundException {
 		return open(LOCAL_HOST, sid, user, pass);
 	}
 	/**
@@ -47,11 +47,11 @@ public class OracleDatabaseConnection {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 */
-	public static Connection open(String user,String pass)  throws SQLException, ClassNotFoundException{
+    public final static Connection open(String user, String pass) throws SQLException, ClassNotFoundException {
 		return open(XE,user, pass);
 	}
 
-	private static String getURL(String host,String sid) {
+    private final static String getURL(String host, String sid) {
 		return "jdbc:oracle:thin:@"+host+":1521:"+sid;
 	}
 }

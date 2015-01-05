@@ -13,8 +13,8 @@ public abstract class MyQuery{
         // TODO 自動生成されたコンストラクター・スタブ
     }
 
-    private HashMap<Object, HashMap<String, Object>> map = null;
-    private ArrayList<HashMap<String, Object>> list = null;
+    protected HashMap<Object, HashMap<String, Object>> map = null;
+    protected ArrayList<HashMap<String, Object>> list = null;
 
     /**
      * データベースにアクセスしSQL文を実行する（con.close()しない）

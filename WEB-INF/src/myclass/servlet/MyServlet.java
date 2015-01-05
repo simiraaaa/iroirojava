@@ -1,4 +1,4 @@
-package myclass;
+package myclass.servlet;
 
 import java.io.IOException;
 

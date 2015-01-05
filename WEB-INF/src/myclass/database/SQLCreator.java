@@ -6,7 +6,7 @@ import myclass.util.Compare;
  * setしたデータをもとに簡単なSQL文を作る
  */
 public class SQLCreator {
-    private String table, whr;
+    private String table, whr, option;
 
     private String[] columns;
 
@@ -20,6 +20,11 @@ public class SQLCreator {
 
     public SQLCreator(String tableName, String... cols) {
         setTable(tableName).setColumns(cols);
+    }
+
+    public SQLCreator setOption(String op) {
+        option = op;
+        return this;
     }
 
     /**
@@ -98,7 +103,8 @@ public class SQLCreator {
      * @return
      */
     public final String delete() {
-        return SQLforMySQL.delete(table, whr);
+        checkOption();
+        return SQLforMySQL.delete(table, whr) + option;
     }
 
     /**
@@ -108,8 +114,8 @@ public class SQLCreator {
      * @return
      */
     public final String update(String... values) {
-        return Compare.isEmpty(whr) ? SQLforMySQL.update(table, columns, values) : SQLforMySQL
-                .update(table, columns, values, whr);
+        checkOption();
+        return Compare.isEmpty(whr) ? SQLforMySQL.update(table, columns, values) + option : SQLforMySQL.update(table, columns, values, whr) + option;
     }
 
     /**
@@ -118,8 +124,8 @@ public class SQLCreator {
      * @return
      */
     public final String update() {
-        return Compare.isEmpty(whr) ? SQLforMySQL.update(table, columns)
-                : SQLforMySQL.update(table, columns, whr);
+        checkOption();
+        return Compare.isEmpty(whr) ? SQLforMySQL.update(table, columns) + option : SQLforMySQL.update(table, columns, whr) + option;
     }
 
     /**
@@ -128,34 +134,35 @@ public class SQLCreator {
      * @return
      */
     public final String select() {
-        return Compare.isEmpty(whr) ? SQLforMySQL.select(table, columns)
-                : SQLforMySQL.select(table, columns, whr);
+        checkOption();
+        return Compare.isEmpty(whr) ? SQLforMySQL.select(table, columns) + option
+                : SQLforMySQL.select(table, columns, whr)+option;
     }
 
-    private void checkWhere() {
-        if (whr == null) {
-            whr = "";
+    private void checkOption() {
+        if (option == null) {
+            option = "";
         }
     }
 
     /**
-     * where文の後ろにorder byを追加
+     * order byを追加
      * 
      * @param cols
      * @return
      */
     public SQLCreator addOrderBy(String cols) {
-        checkWhere();
-        whr += SQLforMySQL.orderBy(cols);
+        checkOption();
+        option += SQLforMySQL.orderBy(cols);
         return this;
     }
 
     /**
-     * where文の後ろにgroup by 追加
+     * group by 追加
      */
     public SQLCreator addGroupBy(String cols) {
-        checkWhere();
-        whr += SQLforMySQL.groupBy(cols);
+        checkOption();
+        option += SQLforMySQL.groupBy(cols);
         return this;
     }
 
@@ -167,8 +174,8 @@ public class SQLCreator {
      * @return
      */
     public SQLCreator addLimit(int start, int size) {
-        checkWhere();
-        whr += SQLforMySQL.limit(start, size);
+        checkOption();
+        option += SQLforMySQL.limit(start, size);
         return this;
     }
 
@@ -179,8 +186,8 @@ public class SQLCreator {
      * @return
      */
     public SQLCreator addLimit(int size) {
-        checkWhere();
-        whr += SQLforMySQL.limit(size);
+        checkOption();
+        option += SQLforMySQL.limit(size);
         return this;
     }
 

@@ -9,23 +9,28 @@ import java.util.HashMap;
  */
 public class MyHashMap {
 
-	/**
-	 * mapにいろいろ をputsして返す。代入の必要はない
-	 * @param map
-	 * @param os
-	 * @return
-	 */
-	public static HashMap<Object,Object> puts(HashMap<Object,Object> map,Object... os) {
-		for(int i =0,l=os.length;i<l;){map.put(os[i++],os[i++]);}
-		return map;
-	}
+    /**
+     * mapにいろいろ をputsして返す。代入の必要はない
+     * 
+     * @param map
+     * @param os
+     * @return
+     */
+    public static <K extends Object, V extends Object> HashMap<K, V> puts(HashMap<K, V> map,
+            Object... os) {
+        for (int i = 0, l = os.length; i < l;) {
+            map.put((K) os[i++], (V) os[i++]);
+        }
+        return map;
+    }
 
-	/**
-	 * HashMap作って返す
-	 * @param os
-	 * @return
-	 */
-	public static HashMap<Object,Object> create(Object... os) {
-		return puts(new HashMap<Object,Object>(), os);
-	}
+    /**
+     * HashMap作って返す
+     * 
+     * @param os
+     * @return
+     */
+    public static HashMap<Object, Object> create(Object... os) {
+        return puts(new HashMap<Object, Object>(), os);
+    }
 }

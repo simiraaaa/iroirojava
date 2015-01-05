@@ -108,6 +108,8 @@ public class MyDatabase extends MyQuery{
             System.out.println("Connectionクローズに失敗");
             e.printStackTrace();
         }
+        this.list = null;
+        this.map = null;
         return this;
     }
 
@@ -125,6 +127,8 @@ public class MyDatabase extends MyQuery{
         } catch (SQLException e) {
             // TODO 自動生成された catch ブロック
             e.printStackTrace();
+        } finally {
+            this.prepareObjects = null;
         }
     }
 

@@ -176,6 +176,7 @@ public class JSON{
                 } else {
                     sb.append(seq);
                 }
+                continue;
 			case DB_QUOT: ++i[0]; return sb.toString();
 			default: sb.append(c); continue;
 			}

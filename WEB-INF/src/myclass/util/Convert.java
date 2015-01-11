@@ -53,12 +53,19 @@ public class Convert {
      *            falseで小文字
      * @return
      */
-	public static String toUnicode(final String s,boolean toUpper){
+    public static String toUnicode(final String s, boolean noBase62, boolean toUpper) {
 		final char[] chars = s.toCharArray();
 		final int len = chars.length;
-		StringBuffer sb = new StringBuffer(len * UNICODE_RATE);
+        StringBuffer sb = noBase62 ? new StringBuffer() : new StringBuffer(len * UNICODE_RATE);
 		for(int i = 0; i < len; ++i){
-			final String s16 = Integer.toHexString((int)chars[i]);
+            final char c = chars[i];
+            if (noBase62) {
+                if (Base62.isBase62(c)) {
+                    sb.append(c);
+                    continue;
+                }
+            }
+            final String s16 = Integer.toHexString((int) c);
 			sb.append(HEAD);
 			for(int j = UNICODE_LENGTH - s16.length(); j > 0; --j){
 				sb.append(C0);
@@ -74,10 +81,12 @@ public class Convert {
      * @param toUpper
      *            trueで大文字<br>
      *            falseで小文字
+     * @param noBase62
+     *            trueで[0-9a-zA-Z]を無視する
      * @return
      */
-    public Convert toUnicode(boolean toUpper) {
-        converted = toUnicode(converted, toUpper);
+    public Convert toUnicode(boolean noBase62, boolean toUpper) {
+        converted = toUnicode(converted, noBase62, toUpper);
         return this;
     }
 
@@ -88,8 +97,32 @@ public class Convert {
      *            unicodeにする文字列
      */
 	public static String toUnicode(final String s){
-		return toUnicode(s, false);
+        return toUnicode(s, false, false);
 	}
+
+    /**
+     * 文字列をUnicode文字列に変換する
+     * 
+     * @param s
+     * @param noBase62
+     *            trueで[0-9a-zA-Z]を無視する
+     * @return
+     */
+    public static String toUnicode(final String s, boolean noBase62) {
+        return toUnicode(s, noBase62, false);
+    }
+
+    /**
+     * 文字列をUnicode文字列に変換する
+     * 
+     * @param noBase62
+     *            trueで[0-9a-zA-Z]を無視する
+     * @return
+     */
+    public Convert toUnicode(boolean noBase62) {
+        converted = toUnicode(converted, noBase62);
+        return this;
+    }
 
     /**
      * 文字列をunicode文字列に変換
@@ -97,7 +130,7 @@ public class Convert {
      * @return
      */
     public Convert toUnicode() {
-        converted = toUnicode(converted, false);
+        converted = toUnicode(converted, false, false);
         return this;
     }
 

@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import myclass.wrap.MyHashMap;
+
 
 /**
  * JSONが扱える
@@ -12,43 +14,41 @@ import java.util.Map;
  */
 public class JSON{
 
-	private static final char
-	COLON = ':',
-	MINUS = '-',
-	DOT = '.',
-	COMMA = ',',
-	SPACE = ' ',
-	DB_QUOT = '"',
-	BACK = '\\',
-	TRUE = 't',
-	FALSE = 'f',
-	NULL = 'n',
-	OBJECT_START = '{',
-	OBJECT_END = '}',
-	ARRAY_START = '[',
-	ARRAY_END = ']',
-	NUM_0 = '0',
-	NUM_1 = '1',
-	NUM_2 = '2',
-	NUM_3 = '3',
-    NUM_4 = '4',
-	NUM_5 = '5',
-	NUM_6 = '6',
-	NUM_7 = '7',
-	NUM_8 = '8',
-	NUM_9 = '9';
+    private static final char//
+            COLON = ':',
+            MINUS = '-',//
+            DOT = '.',//
+            COMMA = ',',//
+            SPACE = ' ',//
+            DB_QUOT = '"',//
+            BACK = '\\',//
+            TRUE = 't',//
+            FALSE = 'f',//
+            NULL = 'n',//
+            OBJECT_START = '{',//
+            OBJECT_END = '}',//
+            ARRAY_START = '[',//
+            ARRAY_END = ']';
 
-	private static final String
-	LONG_ARRAY = getClassNameLast(long[].class),
-	INT_ARRAY = getClassNameLast(int[].class),
-	BYTE_ARRAY = getClassNameLast(byte[].class),
-	CHAR_ARRAY = getClassNameLast(char[].class),
-	SHORT_ARRAY = getClassNameLast(short[].class),
-	BOOL_ARRAY = getClassNameLast(boolean[].class),
-	DOUBLE_ARRAY = getClassNameLast(double[].class),
-	FLOAT_ARRAY = getClassNameLast(float[].class),
-	OBJECT_ARRAY = getClassNameLast(Object[].class),
-	ARRAY_TWO = "[[";
+    private static final String//
+            LONG_ARRAY = getClassNameLast(long[].class),//
+            INT_ARRAY = getClassNameLast(int[].class),//
+            BYTE_ARRAY = getClassNameLast(byte[].class),//
+            CHAR_ARRAY = getClassNameLast(char[].class),//
+            SHORT_ARRAY = getClassNameLast(short[].class),//
+            BOOL_ARRAY = getClassNameLast(boolean[].class),//
+            DOUBLE_ARRAY = getClassNameLast(double[].class),//
+            FLOAT_ARRAY = getClassNameLast(float[].class),//
+            OBJECT_ARRAY = getClassNameLast(Object[].class),//
+            ARRAY_TWO = "[[";
+
+    private static final HashMap<Character, Character> ESCAPE_SEQ_LIST = MyHashMap.puts(new HashMap<Character, Character>(), //
+            't', EscapeSequence.TAB,//
+            'b', EscapeSequence.BS,//
+            'n', EscapeSequence.LF,//
+            'r', EscapeSequence.CR,//
+            'f', EscapeSequence.F//
+    );
 
 	private static<T> String getClassNameLast(Class<T> c) {
 		String name=c.getName();
@@ -63,9 +63,9 @@ public class JSON{
 	public static String toUnicode(final String s) {
 		byte status = 0;
 		int start = 0;
-		final int
-		OUT = 0,
-		IN = 1,
+        final int//
+        OUT = 0, //
+        IN = 1, //
 		ESC = 2;
 		StringBuffer sb =new StringBuffer(s);
 		int len = sb.length();
@@ -117,7 +117,9 @@ public class JSON{
 		for(; i[0] < len; ++i[0]){
 			final char c = s.charAt(i[0]);
 
-			if(isNumber(c) || c == MINUS){ return parseNumber(s, i, len);}
+            if (Base62.isNumber(c) || c == MINUS) {
+                return parseNumber(s, i, len);
+            }
 
 			switch (c) {
 
@@ -166,13 +168,21 @@ public class JSON{
 		for(; i[0] < len; ++i[0]){
 			final char c = s.charAt(i[0]);
 			switch (c) {
-			case BACK: sb.append(s.charAt(++i[0])); continue;
+            case BACK:
+                char c2 = s.charAt(++i[0]);
+                Character seq = ESCAPE_SEQ_LIST.get(c2);
+                if (seq == null) {
+                    sb.append(c2);
+                } else {
+                    sb.append(seq);
+                }
 			case DB_QUOT: ++i[0]; return sb.toString();
 			default: sb.append(c); continue;
 			}
 		}
 		throw new RuntimeException("JSON:StringFormatException");
 	}
+
 
 	/**
 	 * JSON文字列からJAVAオブジェクトを生成
@@ -233,7 +243,7 @@ public class JSON{
 
 		while(copy < len){
 			final char c = s.charAt(copy++);
-			if (isNumber(c) || c == MINUS || c == DB_QUOT || c == ARRAY_START || c == OBJECT_START || c == TRUE || c == FALSE || c == NULL ) {
+            if (Base62.isNumber(c) || c == MINUS || c == DB_QUOT || c == ARRAY_START || c == OBJECT_START || c == TRUE || c == FALSE || c == NULL) {
 				return false;
 			}else if(c == ARRAY_END){
 				i[0] = copy;
@@ -444,19 +454,7 @@ public class JSON{
     // return i;
     // }
 
-	private static boolean isNumber(final char c){
-		return
-				c == NUM_0 ||
-				c == NUM_1 ||
-				c == NUM_2 ||
-				c == NUM_3 ||
-				c == NUM_4 ||
-				c == NUM_5 ||
-				c == NUM_6 ||
-				c == NUM_7 ||
-				c == NUM_8 ||
-				c == NUM_9 ;
-	}
+
 
 
 

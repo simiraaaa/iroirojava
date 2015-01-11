@@ -40,4 +40,16 @@ public abstract class MyServlet extends HttpServlet{
 		return Integer.parseInt(getParam(s));
 	}
 
+    public static String getParam(HttpServletRequest req, String s) {
+        return req.getParameter(s);
+    }
+
+    public static int getIntParam(HttpServletRequest req, String s) {
+        return Integer.parseInt(getParam(req, s));
+    }
+
+    public static String[] getParamas(HttpServletRequest req, String s) {
+        return req.getParameterValues(s);
+    }
+
 }

@@ -172,7 +172,13 @@ public class JSON{
                 char c2 = s.charAt(++i[0]);
                 Character seq = ESCAPE_SEQ_LIST.get(c2);
                 if (seq == null) {
-                    sb.append(c2);
+                    if (c2 == 'u') {
+                        char hex = (char) Integer.parseInt(s.substring(++i[0], i[0] + 4), 16);
+                        sb.append(hex);
+                        i[0] += 3;
+                    }else{
+                        sb.append(c2);
+                    }
                 } else {
                     sb.append(seq);
                 }

@@ -11,7 +11,7 @@ public class MyHashMap {
 
     /**
      * mapにいろいろ をputsして返す。代入の必要はない
-     * 
+     *
      * @param map
      * @param os
      * @return
@@ -26,11 +26,13 @@ public class MyHashMap {
 
     /**
      * HashMap作って返す
-     * 
+     *
      * @param os
      * @return
      */
-    public static HashMap<Object, Object> create(Object... os) {
-        return puts(new HashMap<Object, Object>(), os);
+    public static <K extends Object, V extends Object> HashMap<K, V> create(Object... os) {
+        return puts(new HashMap<K, V>(), os);
     }
+
+
 }

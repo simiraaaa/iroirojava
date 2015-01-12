@@ -82,7 +82,7 @@ public class JSON{
 				switch (c) {
 				case DB_QUOT:
 					final String before = sb.substring(start, i);
-					final String after = Convert.toUnicode(before);
+                    final String after = Convert.toUnicode(before, true);
 					sb.replace(start, i, after);
 					status = OUT;
 					int add =after.length()-before.length();
@@ -294,7 +294,7 @@ public class JSON{
 	}
 
 	private static StringBuffer stringify(String s, StringBuffer sb) {
-		return sb.append(DB_QUOT + Convert.toUnicode(s) + DB_QUOT);
+        return sb.append(DB_QUOT + Convert.toUnicode(s, true) + DB_QUOT);
 	}
 
 	private static StringBuffer stringify(Object[] ar, StringBuffer sb) {

@@ -7,7 +7,6 @@ import java.net.MalformedURLException;
 
 import javax.servlet.http.HttpServletResponse;
 
-import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -393,7 +392,7 @@ public class MyPdf {
 		try {
 			OutputStream out= res.getOutputStream();
 			out.write(byteout.toByteArray());
-			out.close();
+            out.close();
 		} catch (IOException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();

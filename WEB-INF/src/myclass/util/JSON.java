@@ -417,7 +417,7 @@ public class JSON{
 		if (o instanceof List) { return stringify((List<Object>)o, sb);}
 		if(o instanceof Character){ return stringify(String.valueOf(o), sb);}
 		if(o.getClass().isArray()){
-			String s = o.getClass().getName();System.out.println(s);
+            String s = o.getClass().getName();
 			if(s.endsWith(OBJECT_ARRAY) || s.contains(ARRAY_TWO)){
 				return stringify((Object[])o, sb);
 			}

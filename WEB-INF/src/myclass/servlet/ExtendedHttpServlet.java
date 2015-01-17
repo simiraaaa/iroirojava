@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -31,7 +32,13 @@ public abstract class ExtendedHttpServlet implements ServletWrapper {
     protected HashMap<String, ArrayList<String>> parameterMap = null;
     protected HashMap<String, ArrayList<FileItem>> fileItemMap = null;
     protected boolean isMultipart, isGet;
+    protected HttpServlet servlet = null;
 
+    public void setServlet(HttpServlet serv) {
+        // TODO 自動生成されたメソッド・スタブ
+        servlet = serv;
+
+    }
     public void action(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String contenttype = req.getContentType();
         if (!Compare.isEmpty(contenttype)) {

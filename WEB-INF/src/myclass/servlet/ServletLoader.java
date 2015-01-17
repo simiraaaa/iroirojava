@@ -14,7 +14,7 @@ public class ServletLoader extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         // TODO 自動生成されたメソッド・スタブ
-        doGet(req, res);
+        doPost(req, res);
     }
 
     @Override
@@ -39,6 +39,7 @@ public class ServletLoader extends HttpServlet {
         if (servletWrapper == null) {
             return;
         }
+        servletWrapper.setServlet(this);
         servletWrapper.action(req, res);
     }
 

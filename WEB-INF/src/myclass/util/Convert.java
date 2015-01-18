@@ -278,8 +278,15 @@ public class Convert {
         if (Compare.isEmpty(s)) {
             return s;
         }
-        return s.replaceAll("%", "\\%").//
-        replaceAll("_", "\\_");
+        return s.replaceAll("%", "\\\\%").//
+        replaceAll("_", "\\\\_");
+    }
+
+    public static String escapeWildcard(String s, String e) {
+        if (Compare.isEmpty(s)) {
+            return s;
+        }
+        return s.replaceAll("%", e + "%").replaceAll("_", e + "_");
     }
 
     /**

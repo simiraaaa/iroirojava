@@ -12,6 +12,10 @@ public class MyDatabase extends MyQuery{
 
     private Connection con = null;
 
+    public Connection getCon() {
+        return con;
+    }
+
     public final MyDatabase setConnection(Connection conn) {
         con = conn;
         return this;
@@ -80,7 +84,7 @@ public class MyDatabase extends MyQuery{
     /**
      * sql文を実行する<BR>
      * SELECT以外
-     * 
+     *
      * @param sql
      * @return
      */
@@ -90,7 +94,7 @@ public class MyDatabase extends MyQuery{
 
     /**
      * SELECT実行
-     * 
+     *
      * @param sql
      * @param primary
      * @param fields

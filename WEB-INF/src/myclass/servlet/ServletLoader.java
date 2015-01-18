@@ -9,8 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ServletLoader extends HttpServlet {
 
-    private static String PATH = "/serv/";
-    private static int PATH_LENGTH = PATH.length();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         // TODO 自動生成されたメソッド・スタブ
@@ -45,7 +44,7 @@ public class ServletLoader extends HttpServlet {
 
     public static ServletWrapper load(HttpServletRequest req) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 
-        String classPath = req.getServletPath().substring(PATH_LENGTH);
+        String classPath = req.getPathInfo().substring(1);
         return ((ServletWrapper) Class.forName(classPath).newInstance());
     }
 }

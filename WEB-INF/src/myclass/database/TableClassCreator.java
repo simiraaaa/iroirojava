@@ -19,10 +19,11 @@ public class TableClassCreator {
 
     public static void main(String[] args) {
         MyDatabase db = null;
-        String tablename = "vuser";
+        String tablename = "vmylist";
+        String[] fields = { "ID", "UID" };
         try {
             printInit(getFieldName(tablename, db = new MyDatabase(MySQLDatabaseConnection.open("vgames", "nhs20083", "b19930618"))),//
-                    tablename, "ID", "PASS", "NAME", "ICON", "PROF");
+                    tablename, fields);
         } catch (ClassNotFoundException | SQLException e) {
             // TODO 自動生成された catch ブロック
             e.printStackTrace();

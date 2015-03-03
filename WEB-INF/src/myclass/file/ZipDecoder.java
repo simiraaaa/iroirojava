@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
 /**
@@ -19,37 +18,33 @@ import java.util.zip.ZipFile;
  *
  */
 public class ZipDecoder {
+    public static void main(String[] args) throws IOException {
+        unzip("C:\\Users\\yuki\\Desktop\\sm.zip", "C:\\ziptest", "008");
+    }
 
-    public static void unzip(String inputZipFile) {
+    public static void unzip(String inputZipFile) throws IOException {
         ZipDecoder.unzip(inputZipFile, null);
     }
 
-    public static void unzip(String inputZipFile, String outputFile, String zipFileName) {
-        try {
-            File zipFile = new File(inputZipFile);
-            // 出力先ディレクトリを作成
-            File outputDirectry = Directry.createOutputDirectry(zipFile, outputFile);
-            ZipDecoder.unzip(zipFile, outputDirectry, zipFileName);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+    public static void unzip(String inputZipFile, String outputFile, String zipFileName) throws IOException {
+        File zipFile = new File(inputZipFile);
+        // 出力先ディレクトリを作成
+        File outputDirectry = Directory.createOutputDirectory(zipFile, outputFile);
+        ZipDecoder.unzip(zipFile, outputDirectry, zipFileName);
+
     }
 
-    public static void unzip(String inputZipFile, String outputFile) {
+    public static void unzip(String inputZipFile, String outputFile) throws IOException {
         unzip(inputZipFile, outputFile, null);
     }
 
-    public static void unzip(File zipFile, File baseDirectry, String zipFileName) {
-        try (ZipFile zip = new ZipFile(zipFile)) {
-            writeStream(zip, baseDirectry, zipFileName);
-        } catch (ZipException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public static void unzip(File zipFile, File baseDirectry, String zipFileName) throws IOException {
+        ZipFile zip = new ZipFile(zipFile);
+        writeStream(zip, baseDirectry, zipFileName);
+
     }
 
-    public static void unzip(File zipFile, File baseDirectry) {
+    public static void unzip(File zipFile, File baseDirectry) throws IOException {
         unzip(zipFile, baseDirectry, null);
     }
 

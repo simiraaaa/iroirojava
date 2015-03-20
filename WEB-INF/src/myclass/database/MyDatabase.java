@@ -8,7 +8,7 @@ import java.sql.SQLException;
  * 汎用データベースクラス
  *
  */
-public class MyDatabase extends MyQuery{
+public class MyDatabase extends MyQuery {
 
     private Connection con = null;
     private PreparedStatement ps = null;
@@ -28,6 +28,7 @@ public class MyDatabase extends MyQuery{
         this.ps = con.prepareStatement(sql);
         return this;
     }
+
     public Connection getCon() {
         return con;
     }
@@ -37,8 +38,7 @@ public class MyDatabase extends MyQuery{
         return this;
     }
 
-    public final MyDatabase setConnection(String host, String name, String user,
-            String pass) {
+    public final MyDatabase setConnection(String host, String name, String user, String pass) {
         try {
             con = MySQLDatabaseConnection.open(host, name, user, pass);
         } catch (SQLException e) {
@@ -100,7 +100,7 @@ public class MyDatabase extends MyQuery{
     /**
      * sql文を実行する<BR>
      * SELECT以外
-     * 
+     *
      * @param sql
      * @return
      * @throws SQLException
@@ -112,7 +112,7 @@ public class MyDatabase extends MyQuery{
 
     /**
      * SELECT実行
-     * 
+     *
      * @param sql
      * @param primary
      * @param fields
@@ -168,7 +168,6 @@ public class MyDatabase extends MyQuery{
         }
     }
 
-
     /**
      * PreparedStatementの?に入れる
      */
@@ -176,6 +175,5 @@ public class MyDatabase extends MyQuery{
         this.prepareObjects = (os == null ? new Object[] { null } : os);
         return this;
     }
-
 
 }

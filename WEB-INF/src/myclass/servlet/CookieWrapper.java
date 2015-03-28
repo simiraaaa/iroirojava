@@ -52,7 +52,7 @@ public class CookieWrapper {
     }
 
     /**
-     * クッキーをresponseの追加する
+     * クッキーをresponseに追加する
      *
      * @param name
      * @param value
@@ -64,7 +64,7 @@ public class CookieWrapper {
     }
 
     /**
-     * クッキーをresponseの追加する<br>
+     * クッキーをresponseに追加する<br>
      * 0秒を設定するとそのクッキーを削除
      *
      * @param name
@@ -78,7 +78,7 @@ public class CookieWrapper {
     }
 
     /**
-     * クッキーをresponseの追加する <br>
+     * クッキーをresponseに追加する <br>
      * 0秒を設定するとそのクッキーを削除
      *
      * @param name
@@ -245,7 +245,7 @@ public class CookieWrapper {
      */
     public Map<String, String> getCookies() {
         if (cookies == null) {
-            return getCookies(request);
+            return cookies = getCookies(request);
         }
         return cookies;
     }

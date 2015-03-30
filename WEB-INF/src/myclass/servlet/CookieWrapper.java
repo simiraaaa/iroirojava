@@ -212,11 +212,13 @@ public class CookieWrapper {
     }
 
     /**
-     * cookiesからブラウザにクッキーを追加する。
+     * cookiesからブラウザにクッキーを追加する。<br>
+     * MyCookieの時のメソッドを一応残してある。
      *
      * @param maxage
      * @return
      */
+    @Deprecated
     public CookieWrapper addCookies(int maxage) {
         for (String k : cookies.keySet()) {
             Cookie c = new Cookie(enc(k), enc(cookies.get(k)));
@@ -229,10 +231,12 @@ public class CookieWrapper {
     }
 
     /**
-     * cookiesからブラウザにクッキーを追加する。
+     * cookiesからブラウザにクッキーを追加する。<br>
+     * MyCookieの時のメソッドを一応残してある。
      *
      * @return
      */
+    @Deprecated
     public CookieWrapper addCookies() {
         addCookies(MAXAGE);
         return this;
